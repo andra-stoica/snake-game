@@ -17,16 +17,14 @@ typedef struct snake{
 	ListNode *tail;
 } Snake;
 
-typedef struct food{
-	int x, y;
-	// char type; // b - big, s - small
-} food;
+// typedef struct food{
+// 	int x, y;
+// 	// char type; // b - big, s - small
+// } food;
 
 typedef struct obstacle{
 	int x, y;
 } obstacle;
-
-// voi avea tabla salvata ca o matrice
 
 // board_snake.c
 char **initial_board(int width, int length);
@@ -57,4 +55,4 @@ char **update_board(char **board, Snake *snake,
 
 void print_state(char **board, int width, int length);
 
-
+void actual_game(int width, int length);

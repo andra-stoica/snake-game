@@ -1,13 +1,15 @@
 CC=gcc
-CFLAGS=-Wall -Wextra -g
+CFLAGS=-Wall -Wextra -Iinclude -g
+SOURCES=src/board_snake.c src/game.c src/main.c src/menu.c
+TARGET=snake
 
-.PHONY: clean
+.PHONY: clean valgrind
 
-snake: board_snake.c game.c main.c
-	$(CC) $(CFLAGS) board_snake.c game.c main.c -o snake
+snake: $(SOURCES)
+	$(CC) $(CFLAGS) $(SOURCES) -o $(TARGET)
 
 valgrind: snake
 	valgrind --leak-check=full --show-leak-kinds=all ./snake
 
 clean:
-	rm -f snake
+	rm -f $(TARGET)
