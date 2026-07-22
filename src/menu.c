@@ -1,4 +1,5 @@
 #include "menu.h"
+#include "game.h"
 
 void print_banner_snake(void)
 {
@@ -67,7 +68,7 @@ void high_score_menu(char *name)
 
     printf("\n\nOther players: (easy, normal, hard)\n");
     printf("<---------------->\n");
-    int i = 0;
+    int i = 0, j = 0;
     while (fgets(line, LINE_LENGTH, fin)) {
         i++;
         char *p = strtok(line, " ");
@@ -77,6 +78,7 @@ void high_score_menu(char *name)
         }
 
         if (strcmp(name, p) != 0) {
+            j++;
             printf("@%s: ", p);
             p = strtok(NULL, " ");
             easy_score = atoi(p);
@@ -87,7 +89,7 @@ void high_score_menu(char *name)
             p = strtok(NULL, " ");
             hard_score = atoi(p);
             
-            if (i == number_players) {
+            if (i == number_players || (number_players == i  + 1 && i == j)) {
                 printf("%d %d %d\n", easy_score, normal_score, hard_score);
             } else {
                 printf("%d %d %d\n\n", easy_score, normal_score, hard_score);
@@ -319,6 +321,7 @@ void board_settings_menu()
             printf("> 16x16  (press '1')\n");
             printf("> 32x32  (press '2')\n");
             printf("> custom (press 'c')\n");
+            
         }
     }
 
@@ -401,7 +404,7 @@ void help_menu(void)
     free(line);
 }
 
-void menu(int length, int width)
+void menu()
 {
     printf("\033[2J\033[H");
 	fflush(stdout);
@@ -470,7 +473,7 @@ void menu(int length, int width)
         char choice = line[0];
 
         if (choice == '1') {
-            actual_game(width, length);
+            actual_game();
             printf("\033[2J\033[H");
             fflush(stdout);
 
@@ -490,7 +493,7 @@ void menu(int length, int width)
             settings_menu();
         } else if (choice == '4') {
             help_menu();
-        } else if (choice == '5') {
+        } else if (choice == '5' || choice == 'q') {
             break;
         } else {
             printf("\033[2J\033[H");

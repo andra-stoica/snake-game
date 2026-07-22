@@ -1,4 +1,4 @@
-#include "all_h.h"
+#include "board_snake.h"
 
 char **initial_board(int width, int length)
 {
